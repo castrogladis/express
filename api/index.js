@@ -10,7 +10,7 @@ const {
 //require('express-async-errors');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json()); //este es un middleware
 
@@ -26,7 +26,7 @@ const options = {
 };
 app.use(cors(options)); //cors, habilitado a cualquier dominio, aceptando cualquier origen
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hola mi server en express');
 });
 
