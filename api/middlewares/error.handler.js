@@ -1,12 +1,10 @@
 function logErrors(err, req, res, next) {
-  console.log('log errors');
   console.error(err);
   next(err);
 }
 
 //crea un formato para devolverselo a nuestro cliente, si hay un error es el punto
 function errorHandler(err, req, res, next) {
-  console.log('error Handler');
   res.status(500).json({
     message: err.message,
     stack: err.stack,
