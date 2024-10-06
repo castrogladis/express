@@ -1,7 +1,7 @@
 //Archivo que controla los endpoint para los prodcutos
 const express = require('express');
 
-const ProductsService = require('./../service/products.service'); //service
+const ProductsService = require('../service/product.service'); //service
 const validatorHandler = require('../middlewares/validator.handler'); //validator handler
 const {
   createProductSchema,
@@ -13,7 +13,7 @@ const router = express.Router();
 const service = new ProductsService(); //service
 
 //Faker http://localhost:3000/products?size=3 arroja tres productos
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const products = await service.find();
     res.json(products);

@@ -4,7 +4,7 @@ async function getConnection() {
     host: 'localhost',
     port: 5432,
     user: 'gladis',
-    pasword: 'Gladis127035*',
+    password: 'Gladis127035*',
     database: 'my_store',
   });
   await client.connect();

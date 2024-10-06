@@ -7,7 +7,7 @@ services:
       - POSTGRES_USER=gladis
       - POSTGRES_PASSWORD=Gladis127035*
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
@@ -18,3 +18,23 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
       - 5050:80
+
+  mysql:
+    image: mysql:5
+    environment:
+      - MYSQL_DATABASE=my_store
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=Gladis127035*
+      - MYSQL_PORT=3306
+    ports:
+      - 33061:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=Gladis127035*
+      - PMA_HOST=mysql
+    ports:
+      - 8080:80
