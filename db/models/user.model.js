@@ -3,7 +3,7 @@ const { Model, DataTypes, Sequelize } = require('sequelize');
 //Nombre Tabla bd
 const USER_TABLE = 'users';
 
-//Que queremos que cree en la base de datos?
+//Que queremos que se cree en la base de datos?
 const UserSchema = {
   id: {
     allowNull: false,
@@ -33,10 +33,10 @@ const UserSchema = {
   },
 };
 
-//El Model tiee todos los modeles para hacer querys
+//El Model tiene todos los modeles para hacer querys
 class User extends Model {
-  static associate() {
-    // models
+  static associate(models) {
+    this.hasOne(models.Customer, { as: 'customer', foreignKey: 'userId' });
   }
 
   static config(sequelize) {
