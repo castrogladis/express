@@ -15,7 +15,7 @@ function errorHandler(err, req, res, next) {
 }
 
 //Identificar si el error es tipo Boom
-//Si sale el siguiente error:Cannot set headers after they are sent to the client es porq el if no se le coloco un else. sin el else, le iindicamos que continue al siguiente middlewares.
+//Si sale el siguiente error:Cannot set headers after they are sent to the client es porq el if no se le coloco un else. sin el else, le indicamos que continue al siguiente middlewares.
 function boomErrorHandler(err, req, res, next) {
   if (err.isBoom) {
     const { output } = err;
@@ -25,7 +25,7 @@ function boomErrorHandler(err, req, res, next) {
   }
 }
 
-//envia un meor formato para comunicar lo que de verdad se esta rompiendo
+//envia un mejor formato para comunicar lo que de verdad se esta rompiendo
 function ormErrorHandler(err, req, res, next) {
   if (err instanceof ValidationError) {
     res.status(409).json({

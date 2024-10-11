@@ -1,36 +1,39 @@
 const { faker } = require('@faker-js/faker');
+
 const boom = require('@hapi/boom');
 const pool = require('../../libs/postgres.pool');
+const { models } = require('./../../libs/sequelize');
 
 class CategoriesService {
-  constructor() {
-    this.categories = [];
-    this.generate();
-    this.pool = pool;
-    this.pool.on('error', (err) => console.error(err));
-  }
-  generate() {
-    this.categories.push({
-      id: faker.string.uuid(),
-      idCategories: faker.string.uuid(),
-      name: faker.commerce.productName(),
-      //price: parseInt(faker.commerce.price(), 10),
-      //image: faker.image.url(),
-    });
-  }
+  constructor() {}
+  // generate() {
+  //   this.categories.push({
+  //     id: faker.string.uuid(),
+  //     idCategories: faker.string.uuid(),
+  //     name: faker.commerce.productName(),
+  //     price: parseInt(faker.commerce.price(), 10),
+  //     image: faker.image.url(),
+  //   });
+  // }
 
   async create(data) {
-    return data;
+    const newCategory = await models.Category.create(data);
+    return newCategory;
   }
 
   async find() {
-    const query = 'SELECT * FROM tasks';
-    const rta = await this.pool.query(query);
-    return rta.rows;
+    const categories = await models.Category.findAll();
+    return categories;
   }
 
   async findOne(id) {
-    return { id };
+    const category = await models.Category.findByPk(id, {
+      include: ['products'],
+    });
+    if (!category) {
+      throw boom.notFound('customer not found');
+    }
+    return category;
   }
 
   async update(id, changes) {
