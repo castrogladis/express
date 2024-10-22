@@ -30,15 +30,30 @@ const OrderSchema = {
     field: 'created_at',
     defaultValue: Sequelize.NOW,
   },
+  total: {
+    type: DataTypes.VIRTUAL,
+    //como vamos a obtener o calcular este campo
+    get() {
+      if (this.items.length > 0) {
+        //items es la manera de como haya llamado la asociacion abajo
+        return this.items.reduce((total, item) => {
+          return total + item.price * item.OrderProduct.amount;
+        }, 0);
+      }
+      return 0;
+    },
+  },
 };
-// type:DataTypes.INTEGER,unique:true,references:{model:USER_TABLE,key:'id'},
-//  onUpdate:'CASCADE',onDelete:'SET NULL'}}
 
-//El Model tieNe todos los modeles para hacer querys
+//El Model tiene todos los modelos para hacer querys
 class Order extends Model {
   static associate(models) {
-    this.belongsTo(models.Customer, {
-      as: 'customer',
+    this.belongsTo(models.Customer, { as: 'customer' });
+    this.belongsToMany(models.Product, {
+      as: 'items',
+      through: models.OrderProduct, //tabla que hace el join de las dos tablas
+      foreignKey: 'orderId',
+      otherKey: 'productId',
     });
   }
 

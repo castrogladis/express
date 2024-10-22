@@ -1,4 +1,3 @@
-const { type } = require('os');
 const { Model, DataTypes, Sequelize } = require('sequelize');
 const { USER_TABLE } = require('./user.model');
 
@@ -47,14 +46,11 @@ const CustomerSchema = {
     OnDelete: 'SET NULL',
   },
 };
-// type:DataTypes.INTEGER,unique:true,references:{model:USER_TABLE,key:'id'},
-//  onUpdate:'CASCADE',onDelete:'SET NULL'}}
-
 //El Model tieNe todos los modeles para hacer querys
 class Customer extends Model {
   static associate(models) {
     this.belongsTo(models.User, { as: 'user' });
-    this.hasMany(models.Order, { as: 'order', foreignKey: 'customerId' });
+    this.hasMany(models.Order, { as: 'orders', foreignKey: 'customerId' });
   }
 
   static config(sequelize) {

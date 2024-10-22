@@ -4,15 +4,6 @@ const { models } = require('./../../libs/sequelize');
 
 class CategoriesService {
   constructor() {}
-  // generate() {
-  //   this.categories.push({
-  //     id: faker.string.uuid(),
-  //     idCategories: faker.string.uuid(),
-  //     name: faker.commerce.productName(),
-  //     price: parseInt(faker.commerce.price(), 10),
-  //     image: faker.image.url(),
-  //   });
-  // }
 
   async create(data) {
     const newCategory = await models.Category.create(data);
@@ -29,7 +20,7 @@ class CategoriesService {
       include: ['products'],
     });
     if (!category) {
-      throw boom.notFound('customer not found');
+      throw boom.notFound('Category not found');
     }
     return category;
   }
