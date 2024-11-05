@@ -41,5 +41,3 @@ app.use(errorHandler); //finalmente si nadie capturo el error, tenemos un error 
 app.listen(port, () => {
   console.log('Mi port ' + port);
 });
-
-//http://127.0.0.3:5500', 'https://myapp.co
