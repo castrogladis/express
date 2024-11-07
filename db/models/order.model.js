@@ -34,7 +34,7 @@ const OrderSchema = {
     type: DataTypes.VIRTUAL,
     //como vamos a obtener o calcular este campo
     get() {
-      if (this.items.length > 0) {
+      if (this.items && this.items.length > 0) {
         //items es la manera de como haya llamado la asociacion abajo
         return this.items.reduce((total, item) => {
           return total + item.price * item.OrderProduct.amount;
